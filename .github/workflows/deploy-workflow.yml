@@ -1,8 +1,5 @@
 name: GCP Deploy
-on:
-  push:
-    branches:
-      - production
+on: push
 
 jobs:
   deploy-app-engine:
