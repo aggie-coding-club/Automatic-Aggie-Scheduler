@@ -3,9 +3,8 @@ from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import JSONParser
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.sessions.models import Session # TEMP REMOVE LATER
 from user_sessions.utils.retrieve_data_session import retrieve_data_session
-from scraper.models import Section
-from scraper.serializers import SectionSerializer
 from scheduler.views import _serialize_schedules
 
 def _set_state_in_session(request, key: str):
@@ -138,3 +137,12 @@ def logout(request):
     """ Logs out the user and redirects to index"""
     auth.logout(request)
     return Response()
+
+# TEMP CODE TODO REMOVE AFTER BUG FIX
+@api_view(['GET'])
+def get_decoded_session_data(request):
+    """ Basically a temp cout"""
+    key = request.query_params.get('key')
+    session = Session.objects.get(pk=key)
+    session_data = session.get_decoded()
+    return Response(session_data)
