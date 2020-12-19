@@ -127,4 +127,22 @@ describe('SelectTerm', () => {
       );
     });
   });
+
+  describe('Only calls api/terms once', () => {
+    test('when multiple SelectTerm components are rendered', async () => {
+      // arrange
+      const store = createStore(autoSchedulerReducer);
+
+      render(
+        <Provider store={store}>
+          <SelectTerm />
+          <SelectTerm />
+        </Provider>,
+      );
+
+      // act - terms API will automatically fetch
+
+      // assert - if api/terms is called a second time then it won't be mocked, throwing an error
+    });
+  });
 });
