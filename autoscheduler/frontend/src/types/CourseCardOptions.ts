@@ -34,6 +34,7 @@ export interface CourseCardOptions {
   sections?: SectionSelected[];
   loading?: boolean;
   collapsed?: boolean;
+  disabled?: boolean;
 }
 
 // Represents a course card when saved and serialized, sections are saved as strings
@@ -46,6 +47,7 @@ export interface SerializedCourseCardOptions {
   asynchronous?: string;
   sections?: number[];
   collapsed?: boolean;
+  disabled?: boolean;
 }
 
 /**

@@ -82,6 +82,10 @@ ThunkAction<Promise<void>, RootState, undefined, ReplaceSchedulesAction | Select
       if (courseCards[i] && courseCards[i].course) {
         const courseCard = courseCards[i];
 
+        // If the course card is disabled, skip it
+        // eslint-disable-next-line no-continue
+        if (courseCard.disabled) continue;
+
         // Iterate through the sections and only choose the ones that are selected
         const selectedSections = courseCard.sections
           .filter((sectionSel) => sectionSel.selected)
