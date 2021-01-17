@@ -51,6 +51,31 @@ services:
       - SECRET_POSTGRES_USER
       - SECRET_POSTGRES_PASS
 
+  cloud-sql-proxy-cred-file:
+    build:
+      # Have to do a custom dockerfile (rather than using image: like cloud-sql-proxy coes)
+      # b/c we need to set a context so we can access client-secret.json
+      context: ./docker/cloud-sql-proxy-cred-file/
+    command: /cloud_sql_proxy -instances=$GCP_DB_NAME=tcp:0.0.0.0:3306 -credential_file=client-secret.json
+    # Name it cloud-sql-proxy we can connect it to it as the database IP (rather than connecting to cloud-sql-proxy-cred-file)
+    container_name: cloud-sql-proxy
+    ports:
+      - 3306:3006
+
+  run-migrations:
+    build:
+      context: .
+      dockerfile:  docker/run-migrations/Dockerfile
+    depends_on:
+      - cloud-sql-proxy-cred-file
+    volumes:
+      - .:/code
+    container_name: run-migrations
+    secrets:
+      - SECRET_DJANGO_KEY
+      - SECRET_POSTGRES_USER
+      - SECRET_POSTGRES_PASS
+
 volumes:
   pgdata:
 

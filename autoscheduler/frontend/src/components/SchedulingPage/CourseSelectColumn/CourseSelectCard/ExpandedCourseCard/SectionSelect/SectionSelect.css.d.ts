@@ -6,8 +6,6 @@ declare namespace SectionSelectCssNamespace {
     denseListItem: string;
     "divider-container": string;
     dividerContainer: string;
-    "gray-text": string;
-    grayText: string;
     "list-subheader-content": string;
     "list-subheader-dense": string;
     listSubheaderContent: string;
@@ -20,15 +18,19 @@ declare namespace SectionSelectCssNamespace {
     myListItemIcon: string;
     "name-honors-icon": string;
     nameHonorsIcon: string;
-    "no-bottom-space": string;
+    "no-extra-space": string;
     "no-grades-available": string;
     "no-start-padding": string;
-    noBottomSpace: string;
+    noExtraSpace: string;
     noGradesAvailable: string;
     noStartPadding: string;
+    "placeholder-text": string;
+    placeholderText: string;
     "section-details-table": string;
+    "section-name-container": string;
     "section-rows": string;
     sectionDetailsTable: string;
+    sectionNameContainer: string;
     sectionRows: string;
   }
 }

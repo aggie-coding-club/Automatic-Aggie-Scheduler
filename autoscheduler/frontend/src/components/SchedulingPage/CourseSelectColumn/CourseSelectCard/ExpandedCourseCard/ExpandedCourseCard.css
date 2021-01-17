@@ -67,11 +67,6 @@
     margin-top: 8px;
 }
 
-.gray-text {
-    color: rgba(0,0,0,0.56);
-    padding-bottom: 8px;
-}
-
 #center-progress {
     width: 100%;
     display: flex;

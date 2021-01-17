@@ -13,7 +13,7 @@ import SchedulePreview from '../../components/SchedulingPage/SchedulePreview/Sch
 import autoSchedulerReducer from '../../redux/reducer';
 import { replaceSchedules, setSchedules } from '../../redux/actions/schedules';
 import { testSchedule1, testSchedule2 } from '../testSchedules';
-import Section from '../../types/Section';
+import Section, { InstructionalMethod } from '../../types/Section';
 import Instructor from '../../types/Instructor';
 import Meeting, { MeetingType } from '../../types/Meeting';
 import setTerm from '../../redux/actions/term';
@@ -269,6 +269,7 @@ describe('SchedulePreview component', () => {
           asynchronous: false,
           instructor: new Instructor({ name: 'Dr. Pepper' }),
           grades: null,
+          instructionalMethod: InstructionalMethod.NONE,
         }),
       })],
       saved: true,

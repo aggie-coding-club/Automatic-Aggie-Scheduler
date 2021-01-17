@@ -38,3 +38,11 @@
 .meeting-card:hover .start-time, .meeting-card:hover .end-time {
     display: block;
 }
+
+.meeting-card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    flex-shrink: 0;
+}

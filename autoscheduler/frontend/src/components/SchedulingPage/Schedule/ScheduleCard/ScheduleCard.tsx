@@ -47,10 +47,16 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   const cardContent = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     const handleResize = (): void => {
+      // add up heights of children
+      let currContentHeight = 0;
+      for (let i = 0; i < cardContent.current.childElementCount; i++) {
+        currContentHeight += cardContent.current.children[i].clientHeight;
+      }
       // set initial height for future use
-      contentHeight = contentHeight || cardContent.current.clientHeight;
+      contentHeight = contentHeight || currContentHeight;
       // notify the parent component
-      onResizeWindow(contentHeight, cardRoot.current.clientHeight);
+      const heightAvailable = cardContent.current.parentElement.clientHeight;
+      onResizeWindow(contentHeight, heightAvailable);
     };
 
     // only attach the listener if the parent component cares to listen

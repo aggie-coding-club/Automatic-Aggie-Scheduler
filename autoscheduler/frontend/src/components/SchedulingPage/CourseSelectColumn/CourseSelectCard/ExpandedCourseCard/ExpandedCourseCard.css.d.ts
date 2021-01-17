@@ -11,8 +11,6 @@ declare namespace ExpandedCourseCardCssNamespace {
     courseInputFocused: string;
     "customization-buttons": string;
     customizationButtons: string;
-    "gray-text": string;
-    grayText: string;
     header: string;
     "header-group": string;
     headerGroup: string;

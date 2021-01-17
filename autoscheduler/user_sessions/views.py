@@ -87,7 +87,7 @@ def get_full_name(request):
     """
     user_id = request.session.get('_auth_user_id')
     if user_id is None:
-        return Response(status=400)
+        return Response(status=200)
     user = User.objects.get(pk=user_id)
     response = {'fullName': user.get_full_name()}
     return Response(response)

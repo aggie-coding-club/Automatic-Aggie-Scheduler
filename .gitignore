@@ -82,3 +82,4 @@ celerybeat-schedule
 
 #user config file
 autoscheduler/autoscheduler/config/postgres-info.json
+.idea

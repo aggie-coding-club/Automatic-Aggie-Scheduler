@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Typography } from '@material-ui/core';
-
+import * as styles from './MeetingCard.css';
 import Meeting, { MeetingType } from '../../../../types/Meeting';
 import ScheduleCard from '../ScheduleCard/ScheduleCard';
 
@@ -43,10 +43,18 @@ const MeetingCard: React.FC<MeetingCardProps> = ({
       backgroundColor={bgColor}
       borderColor={bgColor}
     >
-      <Typography variant="body2" data-testid="meeting-card-primary-content">
-        {`${section.subject} ${section.courseNum}-${section.sectionNum}`}
+      <Typography variant="body2" data-testid="meeting-card-primary-content" className={styles.meetingCardText}>
+        {`${section.subject} ${section.courseNum}`}
+        {isBig
+          ? `-${section.sectionNum}`
+          : (
+            <Typography variant="subtitle2" component="span">
+              &nbsp;
+              {`${MeetingType[meetingType]}`}
+            </Typography>
+          )}
       </Typography>
-      <Typography variant="subtitle2" hidden={!isBig}>
+      <Typography variant="subtitle2" style={{ display: isBig ? 'block' : 'none' }}>
         {MeetingType[meetingType]}
       </Typography>
     </ScheduleCard>

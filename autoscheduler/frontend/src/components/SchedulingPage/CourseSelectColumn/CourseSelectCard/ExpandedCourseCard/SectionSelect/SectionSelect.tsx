@@ -44,7 +44,7 @@ const SectionSelect: React.FC<SectionSelectProps> = ({ id }): JSX.Element => {
   // show placeholder text if there are no sections
   if (sections.length === 0) {
     return (
-      <Typography className={styles.grayText} variant="body1">
+      <Typography className={styles.placeholderText} color="textSecondary" variant="body1">
         There are no available sections for this term
       </Typography>
     );

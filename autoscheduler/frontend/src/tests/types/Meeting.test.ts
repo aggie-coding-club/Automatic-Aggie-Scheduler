@@ -1,6 +1,6 @@
 import Meeting, { MeetingType } from '../../types/Meeting';
 import { Indexable, fetchMock } from '../util';
-import Section from '../../types/Section';
+import Section, { InstructionalMethod } from '../../types/Section';
 import Instructor from '../../types/Instructor';
 
 // arrange
@@ -30,6 +30,7 @@ const correctArgs: Indexable = {
       name: 'Aakash Tyagi',
     }),
     grades: null,
+    instructionalMethod: InstructionalMethod.NONE,
   }),
 };
 const createMeeting = jest.fn((args) => new Meeting(fetchMock(args)));

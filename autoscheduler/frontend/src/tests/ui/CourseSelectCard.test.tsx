@@ -7,7 +7,7 @@ enableFetchMocks();
 /* eslint-disable @typescript-eslint/camelcase */ // needed to mock server responses
 import * as React from 'react';
 import {
-  render, fireEvent, waitFor, queryByTitle as queryByTitleIn,
+  render, fireEvent, waitFor, queryByTitle as queryByTitleIn, within,
 } from '@testing-library/react';
 import 'isomorphic-fetch';
 import { createStore, applyMiddleware } from 'redux';
@@ -18,6 +18,7 @@ import autoSchedulerReducer from '../../redux/reducer';
 import testFetch from '../testData';
 import setTerm from '../../redux/actions/term';
 import { updateCourseCard } from '../../redux/actions/courseCards';
+import { InstructionalMethod } from '../../types/Section';
 
 const dummySectionArgs = {
   id: 123456,
@@ -164,7 +165,7 @@ describe('Course Select Card UI', () => {
       const honorsLabels = getAllByTestId('honors');
       const sectionLabels = getAllByText(
         (content, element) => ignoreInvisible(content, element, sectionNumsRegex),
-      ).map((el) => el.textContent);
+      ).map((el) => el.textContent.trim());
 
       // assert
       expect(sectionLabels).toEqual(sortedSectionNums);
@@ -405,7 +406,6 @@ describe('Course Select Card UI', () => {
       fetchMock.mockResponseOnce(JSON.stringify({
         results: ['MATH 151'],
       }));
-      fetchMock.mockImplementationOnce(testFetch);
 
       const store = createStore(autoSchedulerReducer, applyMiddleware(thunk));
       store.dispatch(setTerm('201931'));
@@ -431,9 +431,8 @@ describe('Course Select Card UI', () => {
       const loadingSpinner = await findByRole('progressbar');
 
       // assert
-      // the loading spinner was shown at one point, but is now hidden
+      // the loading spinner should be shown because we never resolved the last fetch
       expect(loadingSpinner).toBeTruthy();
-      expect(loadingSpinner).not.toBeInTheDocument();
     });
   });
 
@@ -729,6 +728,43 @@ describe('Course Select Card UI', () => {
       // assert
       const placeholder = 'There are no available sections for this term';
       expect(queryByText(placeholder)).not.toBeInTheDocument();
+    });
+  });
+
+  describe('shows the appropriate instructional method for sections', () => {
+    test('when the instructional method is face to face', async () => {
+      // arrange
+      fetchMock.mockResponseOnce(JSON.stringify({ // api/course/search
+        results: ['CSCE 121', 'CSCE 221', 'CSCE 312'],
+      }));
+      fetchMock.mockImplementationOnce(testFetch); // api/sections
+
+      const store = createStore(autoSchedulerReducer, applyMiddleware(thunk));
+      store.dispatch(setTerm('201931'));
+      const { getByText, getByLabelText, findByText } = render(
+        <Provider store={store}><CourseSelectCard id={0} /></Provider>,
+      );
+
+      // act
+      // fill in course
+      const courseEntry = getByLabelText('Course') as HTMLInputElement;
+      fireEvent.change(courseEntry, { target: { value: 'CSCE ' } });
+      const csce121Btn = await findByText('CSCE 121');
+      fireEvent.click(csce121Btn);
+
+      // switch to section view
+      fireEvent.click(getByText('Section'));
+
+      // wait until the card is showing section options
+      const sectionLabel = await waitFor(() => getByText(
+        (content, element) => ignoreInvisible(content, element, '501'),
+      ));
+
+      // query for instructional method tooltip
+      const tooltip = within(sectionLabel).getByTitle(InstructionalMethod.F2F);
+
+      // assert
+      expect(tooltip).toBeInTheDocument();
     });
   });
 });

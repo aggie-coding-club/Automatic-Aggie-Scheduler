@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import fetchMock from 'jest-fetch-mock';
 import autoSchedulerReducer from '../../redux/reducer';
 import { addMeeting, removeMeeting, replaceMeetings } from '../../redux/actions/meetings';
-import Section from '../../types/Section';
+import Section, { InstructionalMethod } from '../../types/Section';
 import Instructor from '../../types/Instructor';
 import Meeting, { MeetingType } from '../../types/Meeting';
 
@@ -23,6 +23,7 @@ const testSection = new Section({
     name: 'Aakash Tyagi',
   }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting1 = new Meeting({

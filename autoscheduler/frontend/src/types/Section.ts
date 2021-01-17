@@ -1,6 +1,19 @@
 import Instructor from './Instructor';
 import Grades from './Grades';
 
+// Instructional methods from the backend, make sure these are synced with Django's Section model
+export enum InstructionalMethod {
+  F2F = 'Face to Face',
+  INTERNSHIP = 'Internship',
+  NONTRADITIONAL = 'Non-traditional',
+  WEB_BASED = 'Web Based',
+  STUDY_ABROAD = 'Study abroad',
+  NONE = '',
+  REMOTE = 'Remote Only',
+  F2F_REMOTE_OPTION = 'F2F or Remote',
+  MIXED_F2F_REMOTE = 'Mixed, F2F and Remote',
+}
+
 export default class Section {
   id: number;
   crn: number;
@@ -16,6 +29,7 @@ export default class Section {
   asynchronous: boolean;
   instructor: Instructor;
   grades: Grades;
+  instructionalMethod: InstructionalMethod;
 
   constructor(src: {
       id: number;
@@ -32,6 +46,7 @@ export default class Section {
       asynchronous: boolean;
       instructor: Instructor;
       grades: Grades;
+      instructionalMethod: InstructionalMethod;
     }) {
     if (!Number.isInteger(src.id)) { throw Error(`Section.id is invalid: ${src.id}`); }
     if (!Number.isInteger(src.crn)) { throw Error(`Meeting.crn is invalid: ${src.crn}`); }

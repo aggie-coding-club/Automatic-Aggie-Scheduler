@@ -1,5 +1,5 @@
 import Meeting, { MeetingType } from '../types/Meeting';
-import Section from '../types/Section';
+import Section, { InstructionalMethod } from '../types/Section';
 import Instructor from '../types/Instructor';
 
 export default async function fetch(route: string): Promise<Response> {
@@ -21,6 +21,7 @@ export default async function fetch(route: string): Promise<Response> {
       name: 'Aakash Tyagi',
     }),
     grades: null,
+    instructionalMethod: InstructionalMethod.NONE,
   });
   const testSection2 = new Section({
     id: 123458,
@@ -39,6 +40,7 @@ export default async function fetch(route: string): Promise<Response> {
       name: 'Aakash Tyagi',
     }),
     grades: null,
+    instructionalMethod: InstructionalMethod.NONE,
   });
   const testSection3 = new Section({
     id: 123457,
@@ -57,6 +59,7 @@ export default async function fetch(route: string): Promise<Response> {
       name: 'Somebody Else',
     }),
     grades: null,
+    instructionalMethod: InstructionalMethod.NONE,
   });
   const testSection4 = new Section({
     id: 830262,
@@ -75,6 +78,7 @@ export default async function fetch(route: string): Promise<Response> {
       name: 'Dr. Pepper',
     }),
     grades: null,
+    instructionalMethod: InstructionalMethod.NONE,
   });
 
   // test that different sections do different things

@@ -10,7 +10,7 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import Meeting, { MeetingType } from '../../types/Meeting';
-import Section from '../../types/Section';
+import Section, { InstructionalMethod } from '../../types/Section';
 import Instructor from '../../types/Instructor';
 import Schedule from '../../components/SchedulingPage/Schedule/Schedule';
 import autoSchedulerReducer from '../../redux/reducer';
@@ -36,6 +36,7 @@ const testSection = new Section({
     name: 'Aakash Tyagi',
   }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting1 = new Meeting({
@@ -115,7 +116,8 @@ describe('Schedule UI', () => {
 
         return {
           backgroundColor: coloredEl.style.backgroundColor,
-          textContent: card.textContent,
+          // select only the course name and number
+          textContent: card.textContent.match(/\w+ \d+/)[0],
         };
       });
 

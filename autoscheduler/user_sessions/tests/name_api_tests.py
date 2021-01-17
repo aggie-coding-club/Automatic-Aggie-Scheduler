@@ -50,7 +50,7 @@ class UsersFullNameAPITests(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), expected)
 
-    def test_get_full_name_returns_400_if_not_logged_in(self):
+    def test_get_full_name_returns_200_if_not_logged_in(self):
         """ Tests that /sessions/get_last_term response returns error code 400
             when user is not logged in
         """
@@ -61,4 +61,4 @@ class UsersFullNameAPITests(APITestCase):
         response = self.client.get('/sessions/get_full_name')
 
         # Assert
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)

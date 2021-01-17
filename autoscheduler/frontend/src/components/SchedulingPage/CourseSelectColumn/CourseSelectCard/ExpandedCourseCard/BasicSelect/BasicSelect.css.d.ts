@@ -2,8 +2,8 @@ declare namespace BasicSelectCssNamespace {
   export interface IBasicSelectCss {
     "fit-content": string;
     fitContent: string;
-    "gray-text": string;
-    grayText: string;
+    "placeholder-text": string;
+    placeholderText: string;
     "select-menu": string;
     "select-root": string;
     selectMenu: string;

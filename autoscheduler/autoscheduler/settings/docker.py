@@ -13,6 +13,7 @@ from autoscheduler.config import config
 
 SECRET_KEY = open("/run/secrets/SECRET_DJANGO_KEY").read()
 
+# For scrape courses on a schedule
 _IS_SCHEDULE = os.getenv('SETTINGS_MODE') == 'schedule'
 
 if _IS_SCHEDULE:

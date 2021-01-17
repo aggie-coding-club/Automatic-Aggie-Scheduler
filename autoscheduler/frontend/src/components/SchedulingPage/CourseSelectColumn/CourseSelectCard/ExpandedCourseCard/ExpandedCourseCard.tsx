@@ -62,7 +62,7 @@ const ExpandedCourseCard: React.FC<ExpandedCourseCardProps> = ({
         return course
           ? <SectionSelect id={id} />
           : (
-            <Typography className={styles.grayText}>
+            <Typography color="textSecondary">
               Select a course to show available sections
             </Typography>
           );

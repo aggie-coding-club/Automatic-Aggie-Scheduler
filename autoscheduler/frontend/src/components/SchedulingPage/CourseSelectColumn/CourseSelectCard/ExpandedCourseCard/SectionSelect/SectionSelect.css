@@ -48,8 +48,7 @@
     margin-right: 5px;
 }
 
-.gray-text {
-    color: rgba(0, 0, 0, 0.56);
+.placeholder-text {
     padding-bottom: 8px;
 }
 
@@ -61,8 +60,9 @@
     text-align: center;
 }
 
-/* The next 2 rules move the section divider to the bottom of the ListItem */
-.no-bottom-space {
+/* The next 2 rules remove extra padding on ListItem components */
+.no-extra-space {
+    margin-top: 0px !important;
     padding-bottom: 0px !important;
     margin-bottom: 0px !important;
 }
@@ -73,4 +73,9 @@
 
 .no-start-padding {
     padding-inline-start: 0;
+}
+
+.section-name-container {
+    display: flex;
+    align-items: center;
 }

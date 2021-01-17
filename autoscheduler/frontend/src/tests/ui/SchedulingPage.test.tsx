@@ -153,11 +153,12 @@ describe('Scheduling Page UI', () => {
       const calendarDay = getByLabelText('Tuesday');
 
       // assert
-      // Schedule 1 has section 501 in it
-      // Schedule 2 has section 200 instead
+      // Schedule 1 has section 501 (LEC) in it
+      // Schedule 2 has section 200 (LAB) instead
       // we check Tuesday to avoid selecting the equivalent text in SchedulePreview
-      expect(queryContainerByText(calendarDay, /CSCE 121-501.*/)).toBeFalsy();
-      expect(queryContainerByText(calendarDay, /CSCE 121-200.*/)).toBeTruthy();
+      const selectedCSCE = queryContainerByText(calendarDay, /CSCE 121.*/);
+      expect(queryContainerByText(selectedCSCE, 'LEC')).toBeFalsy();
+      expect(queryContainerByText(selectedCSCE, 'LAB')).toBeTruthy();
     });
   });
 

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
 import { GenerateSchedulesResponse } from '../types/APIResponses';
+import { InstructionalMethod } from '../types/Section';
 
 /**
  * Mocks the fetch call made to the API to retrieve all sections of a given course. Should return
@@ -24,6 +25,7 @@ export default async function testFetch(route: string): Promise<Response> {
     remote: false,
     asynchronous: false,
     instructor_name: 'Aakash Tyagi',
+    instructional_method: InstructionalMethod.F2F,
   };
   const testSection2 = {
     id: 123458,
@@ -39,6 +41,7 @@ export default async function testFetch(route: string): Promise<Response> {
     remote: false,
     asynchronous: false,
     instructor_name: 'Aakash Tyagi',
+    instructional_method: InstructionalMethod.NONE,
   };
   const testSection3 = {
     id: 123457,
@@ -54,6 +57,7 @@ export default async function testFetch(route: string): Promise<Response> {
     remote: false,
     asynchronous: false,
     instructor_name: 'Somebody Else',
+    instructional_method: InstructionalMethod.NONE,
   };
   const testSection4 = {
     id: 830262,
@@ -69,6 +73,7 @@ export default async function testFetch(route: string): Promise<Response> {
     remote: false,
     asynchronous: false,
     instructor_name: 'Dr. Pepper',
+    instructional_method: InstructionalMethod.NONE,
   };
   // for asynchronous testing
   const testSection5 = {
@@ -85,6 +90,7 @@ export default async function testFetch(route: string): Promise<Response> {
     remote: false,
     asynchronous: true,
     instructor_name: 'Coca Cola',
+    instructional_method: InstructionalMethod.NONE,
   };
 
   // test that different sections do different things
@@ -245,7 +251,7 @@ export async function mockFetchSchedulerGenerate(): Promise<Response> {
       days: [false, true, false, true, false, false, false], // TR
       start: '11:10',
       end: '12:25',
-      type: 'LEC',
+      type: 'LAB',
     }],
   };
 

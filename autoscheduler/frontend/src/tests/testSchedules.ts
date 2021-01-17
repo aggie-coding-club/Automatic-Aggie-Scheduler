@@ -1,4 +1,4 @@
-import Section from '../types/Section';
+import Section, { InstructionalMethod } from '../types/Section';
 import Instructor from '../types/Instructor';
 import Meeting, { MeetingType } from '../types/Meeting';
 
@@ -22,6 +22,7 @@ const testSection1 = new Section({
     name: 'Aakash Tyagi',
   }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testSection2 = new Section({
@@ -41,6 +42,7 @@ const testSection2 = new Section({
     name: 'James Pennington',
   }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testSection3 = new Section({
@@ -60,6 +62,7 @@ const testSection3 = new Section({
     name: 'William Cohn',
   }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting = new Meeting({
@@ -125,6 +128,7 @@ const testSectionA = new Section({
   asynchronous: false,
   instructor: new Instructor({ name: 'Deborah Seagle' }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting5 = new Meeting({
@@ -165,6 +169,7 @@ const testSectionB = new Section({
   asynchronous: false,
   instructor: new Instructor({ name: 'Donald Trump' }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting7 = new Meeting({
@@ -194,6 +199,7 @@ const testSectionC = new Section({
   asynchronous: false,
   instructor: new Instructor({ name: 'Harley Quinn' }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting8 = new Meeting({
@@ -223,6 +229,7 @@ const testSectionD = new Section({
   asynchronous: false,
   instructor: new Instructor({ name: 'Naruto Uchiha' }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting9 = new Meeting({
@@ -252,6 +259,7 @@ const testSectionE = new Section({
   asynchronous: false,
   instructor: new Instructor({ name: 'Shawn Lupoli' }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting10 = new Meeting({
@@ -281,6 +289,7 @@ const testSectionF = new Section({
   asynchronous: false,
   instructor: new Instructor({ name: 'Albert Einstein' }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting11 = new Meeting({
@@ -310,6 +319,7 @@ const testSectionG = new Section({
   asynchronous: false,
   instructor: new Instructor({ name: 'Leonardo DiCaprio' }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting12 = new Meeting({
@@ -339,6 +349,7 @@ const testSectionH = new Section({
   asynchronous: false,
   instructor: new Instructor({ name: 'Morgan Freeman' }),
   grades: null,
+  instructionalMethod: InstructionalMethod.NONE,
 });
 
 const testMeeting13 = new Meeting({

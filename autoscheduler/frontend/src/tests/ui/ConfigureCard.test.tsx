@@ -57,7 +57,6 @@ describe('ConfigureCard component', () => {
 
       // act
       fireEvent.click(getByText('Generate Schedules'));
-      await new Promise(setImmediate);
       const loadingSpinner = await findByRole('progressbar');
 
       // assert

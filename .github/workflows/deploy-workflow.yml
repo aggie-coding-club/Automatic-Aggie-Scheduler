@@ -92,3 +92,38 @@ jobs:
       - name: Deploy to Google Cloud Storage
         run: gsutil -m cp -r . gs://${{ secrets.BUCKET_NAME }}
         working-directory: ./autoscheduler/static
+
+  run-migrations:
+    name: Run Migrations
+    runs-on: ubuntu-latest
+    env:
+      GCP_DB_NAME: ${{ secrets.GCP_DB_NAME }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Fill in Postgres credentials
+        run: bash fill_credentials.sh ${{ secrets.POSTGRES_USER }} ${{ secrets.POSTGRES_PASS }}
+
+      - name: Initialize Google Cloud SDK
+        uses: zxyle/publish-gae-action@master
+        with:
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.PROJECT_ID }}
+          gae_config_path: ./autoscheduler/app.yaml
+
+      - name: Initialize GCP Credentials
+        run: |
+          # This client-secret.json is converted by GCP_SA_KEY
+          gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
+          gcloud config set project ${{ secrets.PROJECT_ID }}
+
+      # By default it copies to ./client-secret.json, but we need it in docker/cloud-sql-proxy so its in
+      # the cloud-sql-proxy-cred-file's context
+      - name: Copy client-secret.json
+        run: cp client-secret.json docker/cloud-sql-proxy-cred-file/client-secret.json
+
+      - name: Run docker
+        # sudo -E so we can access the GCP_DB_NAME env var
+        run: sudo -E docker-compose up --build --abort-on-container-exit run-migrations

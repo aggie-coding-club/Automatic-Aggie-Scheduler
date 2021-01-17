@@ -9,9 +9,10 @@ import {
 } from '../reducers/courseCards';
 import { RootState } from '../reducer';
 import Meeting, { MeetingType } from '../../types/Meeting';
-import Section from '../../types/Section';
+import Section, { InstructionalMethod } from '../../types/Section';
 import Instructor from '../../types/Instructor';
 import Grades from '../../types/Grades';
+import sortMeeting from '../../utils/sortMeetingFunction';
 
 function createEmptyCourseCard(): CourseCardOptions {
   return {
@@ -77,6 +78,7 @@ function parseSection(sectionData: any): Section {
     asynchronous: sectionData.asynchronous,
     instructor: new Instructor({ name: sectionData.instructor_name }),
     grades: sectionData.grades == null ? null : new Grades(sectionData.grades),
+    instructionalMethod: sectionData.instructional_method ?? InstructionalMethod.NONE,
   });
 }
 
@@ -142,7 +144,7 @@ export function parseSectionSelected(arr: any[]): SectionSelected[] {
   return arr.map((sectionData) => {
     const section = parseSection(sectionData);
 
-    const meetings = parseMeetings(sectionData, section);
+    const meetings = parseMeetings(sectionData, section).sort(sortMeeting);
 
     return { section, meetings, selected: false };
   });
