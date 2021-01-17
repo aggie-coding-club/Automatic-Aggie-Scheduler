@@ -42,6 +42,10 @@ def _get_state_from_session(request, key: str):
 def get_last_term(request):
     """ API endpoint that returns JSON containing last term for the user's session. """
     with retrieve_data_session(request) as data_session:
+        ret = ""
+        for key, value in data_session.items():
+            ret = f'{ret}{key}: {value}, '
+        print(f'get_last_term: {ret}')
         term = data_session.get('term')
         response = {}
         if term:
@@ -59,6 +63,7 @@ def set_last_term(request):
         if term is None:
             return Response(status=400)
         data_session['term'] = term
+        data_session.save()
         return Response()
 
 @api_view(['PUT'])
@@ -85,6 +90,10 @@ def get_full_name(request):
     """ View that retrieves the first and last name separated by a space for the user
           of the current session
     """
+    ret = ""
+    for key, value in request.session.items():
+        ret = f'{ret}{key}: {value}, '
+    print(f'get_full_name: {ret}')
     user_id = request.session.get('_auth_user_id')
     if user_id is None:
         return Response(status=200)
@@ -143,6 +152,15 @@ def logout(request):
 def get_decoded_session_data(request):
     """ Basically a temp cout"""
     key = request.query_params.get('key')
-    session = Session.objects.get(pk=key)
+    session = Session.objects.get(pk=request.session.session_key)
     session_data = session.get_decoded()
-    return Response(session_data)
+    # return Response(session_data)
+
+    with retrieve_data_session(request) as data_session:
+        ret = []
+        ret.append(session_data)
+        # ret.append(data_session.get_decoded())
+        for key, value in data_session.items():
+            ret.append(f"{key}: {value}")
+        return Response(ret)
+    return Response("stuff")

@@ -29,7 +29,11 @@ else:
     SECRET_KEY = 'ogxjva5h%&5c7&e#-2f1&+u5p#zygwffcy!@)k8i37#j_89xe2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not _IS_GCP
+# DEBUG = not _IS_GCP
+DEBUG = True
+
+# 10 years
+SESSION_COOKIE_AGE = 1209600 * 26 * 10
 
 ALLOWED_HOSTS = [
     '*',
