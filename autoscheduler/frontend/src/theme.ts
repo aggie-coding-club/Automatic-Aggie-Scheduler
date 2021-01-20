@@ -36,6 +36,37 @@ const overrides: Overrides = {
       flexWrap: 'nowrap',
     },
   },
+  MuiSwitch: {
+    root: {
+      width: 50,
+      height: 30,
+      padding: 7,
+    },
+    switchBase: {
+      padding: 5,
+      color: '#aaa', // unselected/disabled color
+      '&$checked': {
+        color: 'white !important',
+      },
+      '&$checked + $track': {
+        opacity: 0.75, // Default is 0.5
+      },
+    },
+    thumb: {
+      width: 20,
+      height: 20,
+    },
+    track: {
+      borderRadius: 58 / 2,
+      opacity: 1,
+      backgroundColor: 'white', // disabled background color
+    },
+    checked: {},
+  },
 };
 
 export default createMuiTheme({ palette, overrides });
+
+export function getDisabledCourseCardColor(disabled: boolean): string {
+  return disabled ? '#666' : '#500';
+}
