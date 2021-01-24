@@ -65,7 +65,12 @@ const ScheduleListItem: React.FC<ScheduleListItemProps> = ({ index, onDetailsCli
     return (
       <span key={sec.id} className={styles.sectionLabelRow}>
         <ColorBox color={color} />
-        {`${sec.subject} ${sec.courseNum}-${sec.sectionNum}`}
+        <span className={styles.sectionNum}>
+          {`${sec.subject} ${sec.courseNum}-${sec.sectionNum}`}
+        </span>
+        <span className={styles.instructorName}>
+          {sec.instructor.name}
+        </span>
         <br />
       </span>
     );

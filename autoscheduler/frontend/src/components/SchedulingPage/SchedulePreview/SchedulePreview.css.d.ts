@@ -11,6 +11,8 @@ declare namespace SchedulePreviewCssNamespace {
     "enable-pointer-events": string;
     enablePointerEvents: string;
     hidden: string;
+    "instructor-name": string;
+    instructorName: string;
     list: string;
     "list-item-contents": string;
     "list-item-text-container": string;
@@ -34,8 +36,10 @@ declare namespace SchedulePreviewCssNamespace {
     schedulesLoadingIndicator: string;
     "section-container": string;
     "section-label-row": string;
+    "section-num": string;
     sectionContainer: string;
     sectionLabelRow: string;
+    sectionNum: string;
   }
 }
 
