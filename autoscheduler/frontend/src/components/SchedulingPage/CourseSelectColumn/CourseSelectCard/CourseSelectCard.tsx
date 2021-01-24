@@ -4,7 +4,7 @@ import RemoveIcon from '@material-ui/icons/Delete';
 import CollapseIcon from '@material-ui/icons/ExpandLess';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
-  TextField, ButtonGroup, Button, FormLabel, Card, Typography, Collapse,
+  TextField, ButtonGroup, Button, FormLabel, Card, Typography, Collapse, Switch,
 } from '@material-ui/core';
 import { RootState } from '../../../../redux/reducer';
 import { updateCourseCard, removeCourseCard } from '../../../../redux/actions/courseCards';
@@ -19,6 +19,7 @@ import { CustomizationLevel, CourseCardOptions } from '../../../../types/CourseC
 
 
 import SmallFastProgress from '../../../SmallFastProgress';
+import { getDisabledCourseCardColor } from '../../../../theme';
 
 interface CourseSelectCardProps {
   id: number;
@@ -28,7 +29,9 @@ const CourseSelectCard: React.FC<CourseSelectCardProps> = ({ id }) => {
   const dispatch = useDispatch();
   const term = useSelector<RootState, string>((state) => state.term);
   const collapsed = useSelector<RootState, boolean>((state) => state.courseCards[id].collapsed);
-  const { course, customizationLevel, loading } = useSelector<RootState, CourseCardOptions>(
+  const {
+    course, customizationLevel, loading, disabled,
+  } = useSelector<RootState, CourseCardOptions>(
     (state) => state.courseCards[id],
   );
 
@@ -46,6 +49,10 @@ const CourseSelectCard: React.FC<CourseSelectCardProps> = ({ id }) => {
       role="button"
       tabIndex={0}
       onKeyPress={toggleCollapsed}
+      style={{
+        backgroundColor: getDisabledCourseCardColor(disabled),
+      }}
+      data-testid="card-header"
     >
       <div
         className={styles.headerGroup}
@@ -62,17 +69,26 @@ const CourseSelectCard: React.FC<CourseSelectCardProps> = ({ id }) => {
         aria-label="Remove"
       >
         <RemoveIcon />
-        {!collapsed && 'Remove'}
       </div>
       <span className={styles.course}>{collapsed && (course || 'No Course Selected')}</span>
-      <div className={styles.headerGroup}>
-        <CollapseIcon
-          classes={{ root: styles.rotatableIcon }}
-          style={{
-            transform: collapsed ? '' : 'rotate(180deg)',
+      <div className={styles.rightHeaderGroup}>
+        {!collapsed && 'Include in schedule'}
+        <Switch
+          aria-label="Disable"
+          checked={!disabled}
+          onClick={(evt): void => {
+            dispatch(updateCourseCard(id, { disabled: !disabled }));
+            evt.stopPropagation();
           }}
-          aria-label={collapsed ? 'Expand' : 'Collapse'}
         />
+        <div className={styles.headerGroup}>
+          <CollapseIcon
+            classes={{ root: styles.rotatableIcon }}
+            style={{
+              transform: collapsed ? '' : 'rotate(180deg)',
+            }}
+          />
+        </div>
       </div>
     </div>
   );

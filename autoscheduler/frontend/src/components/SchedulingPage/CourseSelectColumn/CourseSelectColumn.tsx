@@ -90,6 +90,7 @@ const CourseSelectColumn: React.FC = () => {
             asynchronous: course.asynchronous,
             sections,
             collapsed: course.collapsed,
+            disabled: course.disabled,
           });
         }
       }

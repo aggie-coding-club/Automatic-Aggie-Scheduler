@@ -20,6 +20,8 @@ declare namespace ExpandedCourseCardCssNamespace {
     headerGroup: string;
     "no-elevation": string;
     noElevation: string;
+    "right-header-group": string;
+    rightHeaderGroup: string;
     "rotatable-icon": string;
     rotatableIcon: string;
   }

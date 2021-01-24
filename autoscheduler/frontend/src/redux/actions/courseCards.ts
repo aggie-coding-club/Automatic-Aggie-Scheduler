@@ -314,6 +314,7 @@ function deserializeCourseCard(courseCard: SerializedCourseCardOptions): CourseC
     collapsed: courseCard.collapsed ?? true,
     sections: [],
     loading: true,
+    disabled: courseCard.disabled,
   };
 }
 

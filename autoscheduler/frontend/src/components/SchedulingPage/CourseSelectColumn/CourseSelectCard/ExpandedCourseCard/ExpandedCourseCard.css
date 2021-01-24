@@ -30,6 +30,12 @@
     cursor: pointer;
 }
 
+.right-header-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .header-group {
     display: flex;
     flex-direction: row;
