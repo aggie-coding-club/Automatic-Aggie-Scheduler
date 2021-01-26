@@ -60,7 +60,7 @@ const ScheduleListItem: React.FC<ScheduleListItemProps> = ({ index, onDetailsCli
   );
 
   const scheduleSections = sectionsForSchedule(schedule).map((sec: Section) => {
-    const color = sec.asynchronous ? undefined : meetingColors.get(sec.subject + sec.courseNum);
+    const color = sec.asynchronous ? '#fff' : meetingColors.get(sec.subject + sec.courseNum);
 
     return (
       <span key={sec.id} className={styles.sectionLabelRow}>
@@ -69,7 +69,7 @@ const ScheduleListItem: React.FC<ScheduleListItemProps> = ({ index, onDetailsCli
           {`${sec.subject} ${sec.courseNum}-${sec.sectionNum}`}
         </span>
         <span className={styles.instructorName}>
-          {sec.instructor.name}
+          {`- ${sec.instructor.name}`}
         </span>
         <br />
       </span>
