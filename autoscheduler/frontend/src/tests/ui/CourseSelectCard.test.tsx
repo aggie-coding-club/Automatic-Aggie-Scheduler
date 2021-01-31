@@ -314,6 +314,8 @@ describe('Course Select Card UI', () => {
 
       const store = createStore(autoSchedulerReducer, applyMiddleware(thunk));
       store.dispatch(setTerm('201931'));
+      // Disable the course cards so it doesn't count for 'Mui-checked'
+      store.dispatch<any>(updateCourseCard(0, { disabled: true }, '201931'));
       const {
         getByText, getByLabelText, findByText,
       } = render(
