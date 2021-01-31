@@ -56,12 +56,39 @@
     flex-shrink: 0;
 }
 
+.color-box-placeholder {
+    position: relative;
+    display: inline-block;
+    border: 1px solid black;
+    margin-right: 4px;
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+}
+
+.x-icon-outer {
+    position: absolute;
+    height: 18px;
+    width: 1px;
+    background-color: red;
+    transform: rotate(45deg);
+    left: 5px;
+    top: -3px;
+}
+
+.x-icon-inner {
+    display: inline-block;
+    height: 18px;
+    width: 1px;
+    background-color: red;
+    transform: rotate(90deg);
+}
+
 .section-num {
     flex-shrink: 0;
 }
 
 .instructor-name {
-    margin-left: 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
