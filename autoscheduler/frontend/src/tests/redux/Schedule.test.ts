@@ -1,12 +1,20 @@
-import { createStore } from 'redux';
+import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
+
+enableFetchMocks();
+
+/* eslint-disable import/first */ // enableFetchMocks must be called before others are imported
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 import autoSchedulerReducer from '../../redux/reducer';
 import {
   addSchedule, removeSchedule, replaceSchedules, saveSchedule,
-  unsaveSchedule, renameSchedule,
+  unsaveSchedule, renameSchedule, generateSchedules,
 } from '../../redux/actions/schedules';
 import Meeting, { MeetingType } from '../../types/Meeting';
 import Section, { InstructionalMethod } from '../../types/Section';
 import Instructor from '../../types/Instructor';
+import { addCourseCard, updateCourseCard } from '../../redux/actions/courseCards';
+import setTerm from '../../redux/actions/term';
 
 const testSectionA = new Section({
   id: 123456,
@@ -437,6 +445,44 @@ describe('Schedule Redux', () => {
       // new schedule should have been generated with the name 'Schedule 1'
       const uniqueNames = new Set(store.getState().schedules.map((schedule) => schedule.name));
       expect(uniqueNames.size).toBe(2);
+    });
+  });
+
+  describe('generateSchedules', () => {
+    test('does not send disabled course cards', () => {
+      // arrange
+      const store = createStore(autoSchedulerReducer, applyMiddleware(thunk));
+      fetchMock.mockResponseOnce('{}'); // api/sections
+      fetchMock.mockResponseOnce('{}'); // api/sections
+      fetchMock.mockResponseOnce('[]'); // scheduler/generate
+
+      store.dispatch(setTerm('202031'));
+
+      store.dispatch<any>(updateCourseCard(0, {
+        disabled: true,
+      }, '202031'));
+
+      store.dispatch<any>(updateCourseCard(0, {
+        course: 'CSCE 121',
+      }, '202031'));
+
+      // Add a course card that will be sent with /scheduler/generate
+      store.dispatch<any>(addCourseCard());
+      store.dispatch<any>(updateCourseCard(1, {
+        course: 'MATH 151',
+      }, '202031'));
+
+      // act
+      store.dispatch<any>(generateSchedules(true));
+
+      // Third call is the /scheduler/generate call. Second index of that call is the body
+      const { body } = fetchMock.mock.calls[2][1];
+      // Convert the body into a string from a Blob, then parse it into an object
+      const { courses } = JSON.parse(body.toString());
+
+      // assert
+      expect(courses.length).toEqual(1);
+      expect(courses[0].subject).toEqual('MATH');
     });
   });
 });

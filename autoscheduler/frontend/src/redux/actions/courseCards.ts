@@ -23,6 +23,7 @@ function createEmptyCourseCard(): CourseCardOptions {
     honors: SectionFilter.EXCLUDE,
     asynchronous: SectionFilter.NO_PREFERENCE,
     collapsed: false,
+    disabled: false,
   };
 }
 

@@ -817,4 +817,30 @@ describe('Course Select Card UI', () => {
       expect(tooltip).toBeInTheDocument();
     });
   });
+
+  describe('disabled course cards', () => {
+    describe('changes the card header color', () => {
+      test('when the card is disabled', async () => {
+        // arrange
+        const store = createStore(autoSchedulerReducer, applyMiddleware(thunk));
+        const { getByLabelText, getByTestId } = render(
+          <Provider store={store}>
+            <CourseSelectCard id={0} />
+          </Provider>,
+        );
+
+        const header = getByTestId('card-header');
+        // pre-assertion to make sure it's not disabled yet
+        expect(header).toHaveStyle('background-color: #500');
+
+        // act
+        const disable = getByLabelText('Disable');
+        fireEvent.click(disable);
+
+        // assert
+        // Don't care what color it changed to - just that it changed from the default
+        expect(header).not.toHaveStyle('background-color: #500');
+      });
+    });
+  });
 });
